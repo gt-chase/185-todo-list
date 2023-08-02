@@ -1,5 +1,4 @@
 require "pg"
-require "pry"
 
 class DatabasePersistence
   def initialize(logger)
@@ -46,7 +45,6 @@ class DatabasePersistence
   def delete_list(id)
     query("DELETE FROM todos WHERE list_id = $1", id)
     query("DELETE FROM lists WHERE id = $1", id)
-    # @session[:lists].reject! { |list| list[:id] == id }
   end
 
   def update_list_name(id, new_name)
@@ -71,10 +69,6 @@ class DatabasePersistence
   def mark_all_todos_as_complete(list_id)
     sql = "UPDATE todos SET completed = true WHERE list_id = $1"
     query(sql, list_id)
-    # list = find_list(list_id)  
-    # list[:todos].each do |todo|
-    #   todo[:completed] = true
-    # end
   end
 
   private
